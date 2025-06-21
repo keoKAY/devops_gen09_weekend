@@ -5,9 +5,9 @@ services:
     container_name: wordpress_cont 
     environment:
     - WORDPRESS_DB_HOST=mysql-db
-    - WORDPRESS_DB_USER=wordpress_user
-    - WORDPRESS_DB_PASSWORD=123
-    - WORDPRESS_DB_NAME=wordpress_db
+    - WORDPRESS_DB_USER=${DB_USER}
+    - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
+    - WORDPRESS_DB_NAME=${DB_DATABASE}
     volumes:
       - wordpress_vol:/var/www/html
     networks:
@@ -20,10 +20,10 @@ services:
     ports:
       - 8080:3306
     environment:
-    - MYSQL_ROOT_PASSWORD=123
-    - MYSQL_USER=wordpress_user
-    - MYSQL_PASSWORD=123
-    - MYSQL_DATABASE=wordpress_db
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    - MYSQL_USER=${DB_USER}
+    - MYSQL_PASSWORD=${DB_PASSWORD}
+    - MYSQL_DATABASE=${DB_DATABASE}
     volumes:
       - mysql_vol:/var/lib/mysql
     networks:
