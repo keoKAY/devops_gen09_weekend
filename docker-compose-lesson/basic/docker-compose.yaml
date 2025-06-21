@@ -1,0 +1,8 @@
+
+services: 
+  nginx-svc:
+    image: nginx:latest
+    container_name: nginx_cont 
+  postgres: 
+    image: postgres:latest
+    container_name: postgres_cont
