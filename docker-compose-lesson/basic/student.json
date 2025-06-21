@@ -1,0 +1,12 @@
+{
+    "name": "james" ,
+    "email": "james@gmail.com", 
+    "subjects": [
+            "Java " , 
+            "Python" 
+        ], 
+    "origin": {
+        "city": "phnom penh" , 
+        "country": "Cambodia"
+    }
+}

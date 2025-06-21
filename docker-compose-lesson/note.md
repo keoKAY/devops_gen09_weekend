@@ -58,4 +58,43 @@ docker compose config --services
 
 sudo systemctl status nginx 
 
+
+# if you have student.json and you want to convert it to the yaml file 
+yq eval --input-format=json --output-format=yaml '.' student.json
+```
+*** 
+### Pull Policy 
+Policy for pulling the docker image 
+* `missing`: pull from local first , if it doesn't exist pull from remote 
+* `always`: always pull image from remote 
+* `build`: don't pull image , but build image instead 
+* never: never pull the image 
+
+
+### Testing the docker pull policies 
+
+```bash
+
+
+#  restful api (upload images )
+git clone https://gitlab.com/devops-trainings3/special-trainning/sample-projects/simple-fileupload-gradle.git
+
+cd simple-fileupload-gradle
+docker compose up -d # build 
+docker compose up -d --build # to manually build it 
+
+curl ifconfig.me
+
+
+
+# if you have nginx-docker-compose.yaml 
+docker compose -f nginx-docker-compose.yaml config
+docker compose -f nginx-docker-compose.yaml up -d 
+
+docker ps 
+docker compose ps 
+docker compose pause 
+docker compose unpause 
+docker compose -f nginx-compose.yaml ps|pause|unpause 
+
 ```

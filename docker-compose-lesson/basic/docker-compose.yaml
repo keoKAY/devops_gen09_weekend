@@ -7,6 +7,8 @@ services:
       - 3000:80
   reactjs-svc: 
     image: 69966/earthdx:78
+    restart: always 
+ 
     container_name: reactjs-cont
     ports: 
       - 8080:80

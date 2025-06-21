@@ -1,0 +1,36 @@
+# services ( wordpress , mysql )
+services:
+  wordpress-svc: 
+    image: wordpress:latest
+    container_name: wordpress_cont 
+    environment:
+    - WORDPRESS_DB_HOST=mysql-db
+    - WORDPRESS_DB_USER=wordpress_user
+    - WORDPRESS_DB_PASSWORD=123
+    - WORDPRESS_DB_NAME=wordpress_db
+    volumes:
+      - wordpress_vol:/var/www/html
+    networks:
+      - wordpress_network
+    ports:
+      - "3000:80"
+  mysql-db:
+    container_name: mysql_cont 
+    image: mysql 
+    ports:
+      - 8080:3306
+    environment:
+    - MYSQL_ROOT_PASSWORD=123
+    - MYSQL_USER=wordpress_user
+    - MYSQL_PASSWORD=123
+    - MYSQL_DATABASE=wordpress_db
+    volumes:
+      - mysql_vol:/var/lib/mysql
+    networks:
+      - wordpress_network
+# backup date from containers to these volume 
+volumes:
+  wordpress_vol: 
+  mysql_vol: 
+networks:
+  wordpress_network: 
