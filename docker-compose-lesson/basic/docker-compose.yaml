@@ -3,6 +3,12 @@ services:
   nginx-svc:
     image: nginx:latest
     container_name: nginx_cont 
-  postgres: 
-    image: postgres:latest
-    container_name: postgres_cont
+    ports: 
+      - 3000:80
+  reactjs-svc: 
+    image: 69966/earthdx:78
+    container_name: reactjs-cont
+    ports: 
+      - 8080:80
+    
+

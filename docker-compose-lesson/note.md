@@ -40,7 +40,9 @@ origin:
     country: Cambodia 
 
 ```
-
+- nginx ( nginx uses 443, 80 )
+- docker ( docker compose ... )
+- firewall rule : 80,443 
 ### Basic Command for docker compose 
 ```bash 
 # to run all containers in detech mode
@@ -52,4 +54,8 @@ docker compose down -v
 # check the configuration of the  docker compose file 
 docker compose config 
 docker compose config --services
+
+
+sudo systemctl status nginx 
+
 ```
