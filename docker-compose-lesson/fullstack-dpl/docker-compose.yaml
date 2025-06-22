@@ -1,7 +1,7 @@
 services: 
   reactjs-svc:
     image: reactjs-product
-    container_name: reactjs-cont
+    container_name: reactjs_cont
     build: 
       context: sample-product-reactapp
       dockerfile: Dockerfile
