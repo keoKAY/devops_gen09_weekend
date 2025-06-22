@@ -21,7 +21,7 @@ function App() {
 
   const handleAddProduct = async ( )=>{
     try{
-      await axios.post(`${baseUrl}/api/v1/products`, newProduct);
+      await axios.post(`/api/v1/products`, newProduct);
       setShowModal(false);
       getProducts()
       .then((data) => {
@@ -33,7 +33,7 @@ function App() {
     }
   }
   const getProducts = async () => {
-    const response = await axios.get(`${baseUrl}/api/v1/products`);
+    const response = await axios.get(`/api/v1/products`);
     return response.data;
   }
   useEffect(() => {

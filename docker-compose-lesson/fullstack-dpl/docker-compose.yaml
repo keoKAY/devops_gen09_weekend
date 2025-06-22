@@ -7,8 +7,8 @@ services:
       context: sample-product-reactapp
       dockerfile: Dockerfile
     pull_policy: build
-    environment:
-      - REACT_APP_BASE_URL=http://localhost:8080
+    #environment:
+    #  - REACT_APP_BASE_URL=http://localhost:8080
     ports: 
       - "3000:80"
     networks:
@@ -23,8 +23,8 @@ services:
      args: 
       - PORT=${APP_PORT:-8080}
     pull_policy: build
-    ports: 
-     - 8080:${APP_PORT:-8080}
+   # ports: 
+   #  - 8080:${APP_PORT:-8080}
     networks:
       - fullstack_network
   postgres:
