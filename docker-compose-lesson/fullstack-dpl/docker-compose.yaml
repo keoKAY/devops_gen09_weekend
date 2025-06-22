@@ -1,0 +1,41 @@
+services: 
+  reactjs-svc:
+    image: reactjs-product
+    container_name: reactjs-cont
+    build: 
+      context: sample-product-reactapp
+      dockerfile: Dockerfile
+    pull_policy: build
+    ports: 
+      - "3000:80"
+    networks:
+      - fullstack_network
+
+  spring-svc:
+    image: spring-product-api
+    container_name: spring_cont
+    build: 
+     context: sample-restful-jpa 
+     dockerfile: dev.Dockerfile
+     args: 
+      - PORT=${APP_PORT:-8080}
+    pull_policy: build
+    ports: 
+      - 8080:${APP_PORT:-8080}
+    networks:
+      - fullstack_network
+  postgres:
+    image: postgres:latest
+    container_name: postgres_cont 
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    volumes: 
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - fullstack_network
+volumes:
+  postgres-data: 
+networks:
+  fullstack_network: 

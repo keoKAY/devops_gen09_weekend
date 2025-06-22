@@ -20,8 +20,8 @@ services:
     ports:
       - 8080:3306
     environment:
-    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-    - MYSQL_USER=${DB_USER}
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-newpassword123}
+    - MYSQL_USER=${DB_USER:-testinguser}
     - MYSQL_PASSWORD=${DB_PASSWORD}
     - MYSQL_DATABASE=${DB_DATABASE}
     volumes:
@@ -34,3 +34,7 @@ volumes:
   mysql_vol: 
 networks:
   wordpress_network: 
+
+
+# docker compose up -d 
+# network: ip:port 
