@@ -42,3 +42,9 @@ volumes:
   postgres-data: 
 networks:
   fullstack_network: 
+
+
+# Database cluster 
+# Primary , Secondary , Backup ... 
+
+# Kubernete cluster 
