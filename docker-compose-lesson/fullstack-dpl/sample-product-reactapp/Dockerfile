@@ -4,6 +4,7 @@ FROM node:alpine as builder
 # Set the working directory
 WORKDIR /app
 COPY package*.json ./
+#ENV REACT_APP_BASE_URL=http://spring-svc:8080
 RUN npm install
 COPY . .
 # Build the React.js application

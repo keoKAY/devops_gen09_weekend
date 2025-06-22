@@ -1,3 +1,4 @@
+# network address = ip + port 
 services: 
   reactjs-svc:
     image: reactjs-product
@@ -6,6 +7,8 @@ services:
       context: sample-product-reactapp
       dockerfile: Dockerfile
     pull_policy: build
+    environment:
+      - REACT_APP_BASE_URL=http://localhost:8080
     ports: 
       - "3000:80"
     networks:
@@ -21,7 +24,7 @@ services:
       - PORT=${APP_PORT:-8080}
     pull_policy: build
     ports: 
-      - 8080:${APP_PORT:-8080}
+     - 8080:${APP_PORT:-8080}
     networks:
       - fullstack_network
   postgres:

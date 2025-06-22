@@ -14,13 +14,14 @@ function App() {
     price: '',
     imageUrl: ''
   });
+  const baseUrl = process.env.REACT_APP_BASE_URL
   const handleInputChange = (e)=>{
     setNewProduct({...newProduct , [e.target.name]: e.target.value})
   }
 
   const handleAddProduct = async ( )=>{
     try{
-      await axios.post("http://localhost:8080/api/v1/products", newProduct);
+      await axios.post(`${baseUrl}/api/v1/products`, newProduct);
       setShowModal(false);
       getProducts()
       .then((data) => {
@@ -32,7 +33,7 @@ function App() {
     }
   }
   const getProducts = async () => {
-    const response = await axios.get("http://localhost:8080/api/v1/products");
+    const response = await axios.get(`${baseUrl}/api/v1/products`);
     return response.data;
   }
   useEffect(() => {
