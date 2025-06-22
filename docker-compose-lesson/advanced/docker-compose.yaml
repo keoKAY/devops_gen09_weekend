@@ -1,0 +1,36 @@
+# how to custom fixed ip for the containers 
+# docker network ls
+# docker network inspect name 
+# docker network inspect name | jq -r ".[0].Containers"
+# docker compose up --scale nginx-svc=3 -d
+services: 
+  nginx-svc: 
+    image: nginx:alpine 
+    ports:
+      - :80
+    networks:
+      - custom_network
+  nginx-svc-1:
+    image: nginx:alpine 
+    container_name: nginx_cont_1
+    volumes:
+      - nginx-vol:/usr/share/nginx/html
+    networks:
+      custom_network: 
+        ipv4_address: 172.20.0.20
+ 
+  nginx-svc-2: 
+    image: nginx:alpine 
+    container_name: nginx_cont_2
+    networks:
+      custom_network: 
+        ipv4_address: 172.20.0.30 
+volumes:
+  nginx-vol:
+    external: true 
+networks:
+  custom_network:
+    driver: bridge
+    ipam: 
+      config: 
+      - subnet: 172.20.0.0/16
