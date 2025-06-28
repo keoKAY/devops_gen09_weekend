@@ -1,0 +1,17 @@
+services: 
+
+# port :8081 for UI 
+# port :5000 for Docker image registry (firewall rule to open it )
+
+  nexus-svc: 
+    image: sonatype/nexus3
+    container_name: nexus_cont 
+    ports:
+      - 8081:8081
+      - 5000:5000
+    volumes:
+      - nexus-vol:/nexus-data
+    restart: always 
+volumes:
+  nexus-vol: 
+
