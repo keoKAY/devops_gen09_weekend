@@ -31,11 +31,16 @@ think of it as a storage device (SSD, HDD) , where you give the name to it
 - docker-hosted
 
 
-## Pushing the docker image to the http:ip 
+## Pushing the docker image to the http://ip 
 ```bash
 docker pull nginx 
 docker tag nginx:latest 35.213.173.163:5000/nginx-nexus:v1.0.0 
 docker push  35.213.173.163:5000/nginx-nexus:v1.0.0
 
 docker login -u admin http://35.213.173.163:5000
+```
+### Configure the domain name for UI and registry 
+```bash
+nexus.domain.dev -> 8081
+docker-registry.domain.dev  -> 5000 
 ```
