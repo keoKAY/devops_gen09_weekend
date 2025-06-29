@@ -170,5 +170,15 @@ sudo certbot --nginx -d nexus-gcp.devnerd.store \
 # self-signed certificate 
 
 # working with container registry domain name 
-nexus-cr.devnerd.store 
+nexus-cr.devnerd.store
+docker login -u admin https://nexus-cr.devnerd.store 
+
+docker logout 
+docker logout domain 
+
+
+# push image 
+docker tag hello-world:latest nexus-cr.devnerd.store/hello-world:v1.0.0
+
+docker push 
 ```

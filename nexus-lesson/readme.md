@@ -44,3 +44,8 @@ docker login -u admin http://35.213.173.163:5000
 nexus.domain.dev -> 8081
 docker-registry.domain.dev  -> 5000 
 ```
+
+* There are **three types** repo in nexus 
+1. hosted 
+2. proxy (pull image from dockerhub )
+3. group  ( hosted + proxy )
