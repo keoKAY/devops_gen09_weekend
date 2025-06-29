@@ -39,12 +39,15 @@ sudo vim reactjs-gcp.conf
 ```nginx
 # configuration for reverse proxy 
 # sudo vim reactjs-gcp.conf 
+
 server{
     listen 80; 
     listen [::]:80; 
     server_name reactjs-gcp.devnerd.store; 
+
     location / {
         proxy_pass http://localhost:3000;
+        # proxy_set_header used to properly forward the request header to the proxy_pass service. 
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -54,4 +57,69 @@ server{
 
 }
 
+```
+### Certbot for https 
+```bash 
+sudo apt install certbot -y 
+sudo apt install python3-certbot-nginx -y 
+sudo certbot --nginx -d reactjs-gcp.devnerd.store   
+sudo certbot --nginx 
+
+# certificates (https )
+# http challenges ( public ip : 80 ) , dnsChallenge
+## email , domain -> current server 
+```
+
+### Adding domain name and https for the other services
+- portainer 
+- nexus repository 
+
+* Sub domain to be created in Namecheap 
+```bash 
+portainer-gcp.devnerd.store 
+nexus-gcp.devnerd.store 
+nexus-cr.devnerd.store 
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+
+```
+
+* portainer.conf 
+```bash 
+# in order to confirm subdomain is usable or not 
+nslookup portainer-gcp.devnerd.store 
+#  you should see name , and address 
+```
+```nginx
+# /etc/nginx/conf.d
+# portainer.conf 
+server{
+    listen 80; 
+    listen [::]:80; 
+
+    server_name portainer-gcp.devnerd.store; 
+    listen / {
+        proxy_pass https://localhost:9000; 
+
+        # Websocket support 
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # Prevese te Client IP and requests 
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+```bash
+sudo nginx -t 
+# to restart the nginx to get the config 
+sudo systemctl restart nginx 
+sudo nginx -s reload 
 ```
