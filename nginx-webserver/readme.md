@@ -109,7 +109,7 @@ server{
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
 
-        # Prevese te Client IP and requests 
+        # Prevese the Client IP and requests 
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -122,4 +122,53 @@ sudo nginx -t
 # to restart the nginx to get the config 
 sudo systemctl restart nginx 
 sudo nginx -s reload 
+```
+
+* adding domain name and https for nexus 
+```bash 
+nexus-gcp.devnerd.store 
+nexus-cr.devnerd.store 
+
+# nexus-gcp.conf 
+server{
+    listen 80; 
+    listen [::]:80; 
+    server_name nexus-gcp.devnerd.store; 
+    location / {
+        proxy_pass http://localhost:8081;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+    } 
+
+}
+
+# nexus-cr.conf 
+server{
+    listen 80; 
+    listen [::]:80; 
+    server_name nexus-cr.devnerd.store; 
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+    } 
+
+}
+
+sudo nginx -t 
+sudo nginx -s reload 
+sudo certbot --nginx -d nexus-gcp.devnerd.store \
+    -d nexus-cr.devnerd.store 
+
+
+# self-signed certificate 
+
+# working with container registry domain name 
+nexus-cr.devnerd.store 
 ```
