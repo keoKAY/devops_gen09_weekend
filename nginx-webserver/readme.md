@@ -182,3 +182,6 @@ docker tag hello-world:latest nexus-cr.devnerd.store/hello-world:v1.0.0
 
 docker push 
 ```
+
+## Bonus Part 
+- Load balancing features of nginx 
