@@ -41,5 +41,17 @@ pipeline {
 
             }
         }
+
+        stage("Add Domain Name"){
+            steps{
+                sh """
+
+                which certbot
+                certbot --version 
+                # write reverse proxy config 
+                # sudo nginx -s reload 
+                """ 
+            }
+        }
     }
 }
