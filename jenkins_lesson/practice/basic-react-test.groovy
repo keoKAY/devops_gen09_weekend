@@ -31,7 +31,7 @@ pipeline {
             steps{
                 
                 sh """
-                    docker build -t lyvanna544/jenkins-react-pipeline . 
+                    docker build -t lyvanna544/jenkins-react-pipeline:${env.BUILD_NUMBER} . 
                 """
             }
         }
@@ -42,7 +42,7 @@ pipeline {
     
                       sh """
                     echo '$PASSWORD' |  docker login -u $USERNAME --password-stdin   
-                docker push lyvanna544/jenkins-react-pipeline 
+                docker push lyvanna544/jenkins-react-pipeline:${env.BUILD_NUMBER} 
                 """
                     }
 
