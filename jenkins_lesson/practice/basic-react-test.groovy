@@ -38,13 +38,10 @@ pipeline {
 
         stage("Push to Dockerhub "){
             steps{
-                withCredentials([gitUsernamePassword(
-                    credentialsId: 'DOCKERHUB',
-                     usernameVariable: 'DOCKER_USERNAME',
-                    passwordVariable: 'DOCKER_PASSWORD')]) {
-                      
+                    withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+    
                       sh """
-                    echo "$DOCKER_PASSWORD |  docker login -u $DOCKER_USERNAME --stdin   
+                    echo '$PASSWORD' |  docker login -u $USERNAME --password-stdin   
                 docker push lyvanna544/jenkins-react-pipeline 
                 """
                     }
