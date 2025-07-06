@@ -1,22 +1,32 @@
 pipeline {
     agent any
 
+    tools{
+        nodejs "nodejs-lts"
+    }
+// Jest ( Testing framework for Frontend )
     stages {
 
         stage('Clone Code') {
             steps {
                 git 'https://github.com/keoKAY/reactjs-devop8-template'
-                sh 'ls -lrt '
-                sh "pwd"
-                sh """
-                echo "This is the code clone " 
-                ls 
-                docker version 
-                """
 
             }
         } 
 
+        stage("Run Test"){
+            steps{
+                sh """
+                    npm install --force
+                    npm test 
+                """
+            }
+
+
+
+        }
+
+        
         stage("Build"){
             steps{
                 sh """
@@ -52,5 +62,7 @@ pipeline {
                 """ 
             }
         }
+
+
     }
 }

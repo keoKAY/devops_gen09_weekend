@@ -45,13 +45,13 @@ tee "${NGINX_CONF_DIR}/${domain_name}.conf" > /dev/null << EOF
     }
 EOF
 
-#    exit 1
-fi
 
 echo "Test and reload the configuration " 
 sudo nginx -t && sudo nginx -s reload
 
 echo "Add https for the ${domain_name}.devnerd.store"
 sudo certbot --nginx -d "${domain_name}.devnerd.store" 
+#    exit 1
+fi
 
 
