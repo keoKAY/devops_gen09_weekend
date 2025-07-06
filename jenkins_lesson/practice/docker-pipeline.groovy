@@ -1,7 +1,21 @@
 pipeline{
     agent any
+    
+    // additoinal configration 
+    environment{
+        DOCKER_IMAGE="myreactjs-image"
+        DOCKER_USERNAME="james168"
+    }
 // Docker pipeline ( used docker command like in programming style )
     stages{
+        stage("Show ENV variable "){
+            steps{
+                sh """
+                echo "Full Image name is : ${DOCKER_USERNAME}/${DOCKER_IMAGE}"
+            """ 
+            }
+           
+        }
         stage("Deploy Nginx Container ")
         {
             
@@ -15,7 +29,7 @@ pipeline{
                 def nginxApp = docker.image("nginx:latest")
                 nginxApp.inside{
                     sh """
-                     whoami 
+              
                      ls -lrt 
                      nginx -v 
                     """
