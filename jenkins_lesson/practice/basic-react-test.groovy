@@ -29,9 +29,27 @@ pipeline {
         
         stage("Build"){
             steps{
+                
                 sh """
-                    docker build -t jenkins-react-pipeline . 
+                    docker build -t lyvanna544/jenkins-react-pipeline . 
                 """
+            }
+        }
+
+        stage("Push to Dockerhub "){
+            steps{
+                withCredentials([gitUsernamePassword(
+                    credentialsId: 'DOCKERHUB',
+                     usernameVariable: 'DOCKER_USERNAME',
+                    passwordVariable: 'DOCKER_PASSWORD')]) {
+                      
+                      sh """
+                    echo "$DOCKER_PASSWORD |  docker login -u $DOCKER_USERNAME --stdin   
+                docker push lyvanna544/jenkins-react-pipeline 
+                """
+                    }
+
+                
             }
         }
 
@@ -45,7 +63,7 @@ pipeline {
 
                 docker run -dp 3000:80 \
                     --name reactjs-cont \
-                    jenkins-react-pipeline
+                    lyvanna544/jenkins-react-pipeline
                 """
 
             }
