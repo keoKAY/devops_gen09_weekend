@@ -1,2 +1,3 @@
 pullpolicy
 docker-compose-lesson/wordpress-deployment/.env
+.env

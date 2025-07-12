@@ -1,8 +1,17 @@
 pipeline {
     agent any
 
-    
     stages {
+        stage("Telegram Message"){
+            steps{
+                script{
+                       def token="telegram-token"
+                    def chatId="chat-id"
+                    sh 'curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d chat_id="${chatId}" -d text="Hello from Jenkins !"' 
+                }
+            }
+        }
+        
         stage('Clone ReactJs Code ') {
             steps {
                   git 'https://github.com/keoKAY/reactjs-devop8-template'
@@ -18,8 +27,7 @@ pipeline {
             }
 
             steps{
-                withSonarQubeEnv(credentialsId: 'SONARQUBE_TOKEN', 
-                installationName: 'sonarqube-scanner') {
+                withSonarQubeEnv(credentialsId: 'SONARQUBE_TOKEN', installationName: 'sonarqube-scanner') {
                 script{
                 
                     def projectKey = 'reactjs-devops8-template' 
@@ -39,8 +47,7 @@ pipeline {
         }
 
 
-        // wait for the quality gate
-        // declare your own variable to use for the condition  
+        // wait for the quality gate 
         stage("Wait for Quality Gate "){
             steps{
                 script{
