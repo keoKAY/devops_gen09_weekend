@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+    
     stages {
         stage('Clone ReactJs Code ') {
             steps {
@@ -37,7 +38,8 @@ pipeline {
         }
 
 
-        // wait for the quality gate 
+        // wait for the quality gate
+        // declare your own variable to use for the condition  
         stage("Wait for Quality Gate "){
             steps{
                 script{
