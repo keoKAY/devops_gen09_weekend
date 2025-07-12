@@ -2,16 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage("Telegram Message"){
+         stage("Telegram Message"){
             steps{
                 script{
-                       def token="telegram-token"
-                    def chatId="chat-id"
-                    sh 'curl -s -X POST https://api.telegram.org/bot${token}/sendMessage -d chat_id="${chatId}" -d text="Hello from Jenkins !"' 
+                    withCredentials([usernamePassword(credentialsId: 'TELEGRAM_BOT',
+                    passwordVariable: 'TOKEN', usernameVariable: 'CHAT_ID')]) {
+                        
+                sh """
+                    curl -s -X POST https://api.telegram.org/bot"${TOKEN}"/sendMessage -d \
+                        chat_id="${CHAT_ID}" \
+                        -d text="Hello from Jenkins !"
+                    
+                    """
+                    }     
                 }
             }
         }
-        
+
         stage('Clone ReactJs Code ') {
             steps {
                   git 'https://github.com/keoKAY/reactjs-devop8-template'
