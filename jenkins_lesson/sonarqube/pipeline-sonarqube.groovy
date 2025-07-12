@@ -18,7 +18,8 @@ pipeline {
             }
 
             steps{
-                withSonarQubeEnv(credentialsId: 'SONARQUBE_TOKEN', installationName: 'sonarqube-scanner') {
+                withSonarQubeEnv(credentialsId: 'SONARQUBE_TOKEN', 
+                installationName: 'sonarqube-scanner') {
                 script{
                 
                     def projectKey = 'reactjs-devops8-template' 
