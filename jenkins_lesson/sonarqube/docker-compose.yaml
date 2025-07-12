@@ -18,9 +18,12 @@ services:
  sonar-postgresql:
    image: postgres:latest
    environment:
+   # default database probably: postgres  
      - POSTGRES_USER=sonar
      - POSTGRES_PASSWORD=sonar@2023
    restart: always
+   # ports: 
+  #   - 5432
    volumes:
      - postgresql_data:/var/lib/postgresql
 volumes:
