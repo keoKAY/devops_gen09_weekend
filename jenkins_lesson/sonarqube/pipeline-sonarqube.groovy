@@ -36,13 +36,44 @@ pipeline {
             }
         }
 
+
+        // wait for the quality gate 
+        stage("Wait for Quality Gate "){
+            steps{
+                script{
+                   def qg = waitForQualityGate()
+                    if ( qg.status != 'OK'){
+                        sh """
+                        echo " No need to build since you QG is failed "
+                        """
+                        currentBuild.result='FAILURE'
+                        return 
+                    }else {
+                        echo "Quality of code is okay!! "
+                        currentBuild.result='SUCCESS'
+                    }
+                }
+
+            }
+        }
+
         stage("Build"){
+            when {
+                expression { 
+                    currentBuild.result == 'SUCCESS'
+                }
+            }
             steps{
                 echo "Building the docker image "
             }
         }
 
         stage("Push"){
+            when {
+                expression { 
+                    currentBuild.result == 'SUCCESS'
+                }
+            }
             steps{
                 echo "Pushing the docker image to registry "
             }
