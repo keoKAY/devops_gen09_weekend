@@ -2,7 +2,7 @@ services:
  sonarqube:
    image: sonarqube:latest
    ports:
-     - "9000:9000"
+     - "9001:9000"
    environment:
      - SONARQUBE_JDBC_URL=jdbc:postgresql://sonar-postgresql:5432/sonar
      - SONARQUBE_JDBC_USERNAME=sonar
