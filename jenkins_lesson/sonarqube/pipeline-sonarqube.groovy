@@ -2,22 +2,21 @@ pipeline {
     agent any
 
     stages {
-         stage("Telegram Message"){
-            steps{
-                script{
-                    withCredentials([usernamePassword(credentialsId: 'TELEGRAM_BOT',
-                    passwordVariable: 'TOKEN', usernameVariable: 'CHAT_ID')]) {
+        //  stage("Telegram Message"){
+        //     steps{
+        //         script{
+        //             withCredentials([usernamePassword(credentialsId: 'TELEGRAM_BOT',
+        //             passwordVariable: 'TOKEN', usernameVariable: 'CHAT_ID')]) {
+
+        //                 script{
+        //                     sendTelegramMessage("Good Pipeline ",
+        //                      ${TOKEN},${CHAT_ID})
+        //                 }
                         
-                sh """
-                    curl -s -X POST https://api.telegram.org/bot"${TOKEN}"/sendMessage -d \
-                        chat_id="${CHAT_ID}" \
-                        -d text="Hello from Jenkins !"
-                    
-                    """
-                    }     
-                }
-            }
-        }
+        //             }     
+        //         }
+        //     }
+        // }
 
         stage('Clone ReactJs Code ') {
             steps {
@@ -98,4 +97,43 @@ pipeline {
         
 
     }
+
+    post{
+        success{
+                script{
+                    withCredentials([usernamePassword(credentialsId: 'TELEGRAM_BOT',
+                    passwordVariable: 'TOKEN', usernameVariable: 'CHAT_ID')]) {
+                            
+                            sendTelegramMessage("Deployment is success! ",
+                             "${TOKEN}","${CHAT_ID}")
+                        
+                        
+                    }     
+                }
+            
+        }
+
+        failure {
+            script{
+                    withCredentials([usernamePassword(credentialsId: 'TELEGRAM_BOT',
+                    passwordVariable: 'TOKEN', usernameVariable: 'CHAT_ID')]) {
+                            sendTelegramMessage("Deployment is Failed! ",
+                             "${TOKEN}","${CHAT_ID}")
+                      
+                        
+                    }     
+                }
+        }
+    }
 }
+
+def sendTelegramMessage(String message, String token , String chatId) {
+    // uppgrade to use Markdown version instead 
+    def encodedMessage = URLEncoder.encode(message, "UTF-8")
+    sh """
+        curl -s -X POST https://api.telegram.org/bot${token}/sendMessage \\
+        -d chat_id=${chatId} \\
+        -d text="${encodedMessage}" > /dev/null
+    """
+}
+
