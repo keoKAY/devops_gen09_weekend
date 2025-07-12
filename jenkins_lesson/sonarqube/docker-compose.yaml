@@ -17,6 +17,7 @@ services:
      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
  sonar-postgresql:
    image: postgres:latest
+   pull_policy: IfNotPresent
    environment:
    # default database probably: postgres  
      - POSTGRES_USER=sonar

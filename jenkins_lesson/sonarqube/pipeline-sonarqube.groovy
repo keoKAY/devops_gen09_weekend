@@ -35,5 +35,19 @@ pipeline {
 
             }
         }
+
+        stage("Build"){
+            steps{
+                echo "Building the docker image "
+            }
+        }
+
+        stage("Push"){
+            steps{
+                echo "Pushing the docker image to registry "
+            }
+        }
+        
+
     }
 }
