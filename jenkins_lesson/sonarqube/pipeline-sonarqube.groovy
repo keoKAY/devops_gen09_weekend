@@ -80,7 +80,9 @@ pipeline {
                 }
             }
             steps{
-                echo "Building the docker image "
+                 sh """
+                    docker build -t lyvanna544/jenkins-react-sonarqube-pipeline:${env.BUILD_NUMBER} . 
+                """
             }
         }
 
@@ -91,20 +93,35 @@ pipeline {
                 }
             }
             steps{
-                echo "Pushing the docker image to registry "
+                withCredentials([usernamePassword(credentialsId: 'DOCKERHUB', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+    
+                      sh """
+                    echo '$PASSWORD' |  docker login -u $USERNAME --password-stdin   
+                docker push lyvanna544/jenkins-react-sonarqube-pipeline:${env.BUILD_NUMBER} 
+                """
+                    }
             }
         }
         
 
     }
+// post actions or post scripts  
 
     post{
         success{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'TELEGRAM_BOT',
                     passwordVariable: 'TOKEN', usernameVariable: 'CHAT_ID')]) {
-                            
-                            sendTelegramMessage("Deployment is success! ",
+
+                            // 
+                            def successMessage="""
+                            Deployment is Success 👍
+                            🟢 Access Service: https://sonarqube.devnerd.store            
+                            📥  Job Name: ${env.JOB_NAME}
+                            🎱   Build Number: ${env.BUILD_NUMBER}
+                            """ 
+
+                            sendTelegramMessage("${successMessage}",
                              "${TOKEN}","${CHAT_ID}")
                         
                         
@@ -117,12 +134,26 @@ pipeline {
             script{
                     withCredentials([usernamePassword(credentialsId: 'TELEGRAM_BOT',
                     passwordVariable: 'TOKEN', usernameVariable: 'CHAT_ID')]) {
-                            sendTelegramMessage("Deployment is Failed! ",
+                             def errorMessage="""
+                            Deployment result in failures 🔥
+                            🟢 Access Report: https://sonarqube.devnerd.store/dashboard?id=reactjs-devops8-template           
+                            📥  Job Name: ${env.JOB_NAME}
+                            🎱   Build Number: ${env.BUILD_NUMBER}
+                            """ 
+
+
+                            sendTelegramMessage("${errorMessage}",
                              "${TOKEN}","${CHAT_ID}")
                       
                         
                     }     
                 }
+        }
+
+        always {
+            // built-in function used to clean the workspace of jenkins 
+            echo "Clearing the workspace of ${env.JOB_NAME} "
+            cleanWs()
         }
     }
 }
