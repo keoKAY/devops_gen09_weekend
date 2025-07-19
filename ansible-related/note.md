@@ -63,4 +63,20 @@ ansible -i inventory.ini all -m ping
 ansible -i inventory.ini all -m command -a "uptime"
 ansible -i inventory.ini all -m apt -a "name=nginx state=present" # absent: remove 
 ansible -i inventory.ini all -m apt -a "name=nginx state=present" --become # sudo 
+
+
+
+# Justfile 
+sudo snap install just --classic 
 ```
+
+
+## NFS ( Network File System )
+Distribute file storages 
+(If we have 5 machines on the network , data will be store in those five machine simultanously )
+
+NFS Server 
+NFS Client 
+
+> NFS Storage Class, Longhorn (by Rancher )
+> Samba , ...
