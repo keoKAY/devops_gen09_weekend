@@ -58,4 +58,9 @@ ansible -i inventory.ini dev -m ping
 ansible -i inventory.ini prod -m ping 
 ansible -i inventory.ini all -m ping 
 
+
+# run adhoc command module 
+ansible -i inventory.ini all -m command -a "uptime"
+ansible -i inventory.ini all -m apt -a "name=nginx state=present" # absent: remove 
+ansible -i inventory.ini all -m apt -a "name=nginx state=present" --become # sudo 
 ```
