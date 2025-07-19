@@ -2,7 +2,7 @@ services:
  sonarqube:
    image: sonarqube:latest
    ports:
-     - "9000:9000"
+     - "9001:9000"
    environment:
      - SONARQUBE_JDBC_URL=jdbc:postgresql://sonar-postgresql:5432/sonar
      - SONARQUBE_JDBC_USERNAME=sonar
@@ -17,10 +17,14 @@ services:
      - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
  sonar-postgresql:
    image: postgres:latest
+   pull_policy: IfNotPresent
    environment:
+   # default database probably: postgres  
      - POSTGRES_USER=sonar
      - POSTGRES_PASSWORD=sonar@2023
    restart: always
+   # ports: 
+  #   - 5432
    volumes:
      - postgresql_data:/var/lib/postgresql
 volumes:
