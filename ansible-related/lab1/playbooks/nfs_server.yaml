@@ -10,6 +10,9 @@
     nfs_remote_dir: /srv/nfs_shared
     nfs_client_ip1: 10.148.0.6
     nfs_client_ip2: 10.184.0.2 
+    # nfs_client_ips:
+    #   - 10.148.0.6
+    #   - 10.184.0.2
   tasks: 
     - name: Update APT caches 
       apt: 
@@ -26,6 +29,16 @@
         group: nogroup
         mode: "0777"
     # configuration inside /etc/exports ( tell which clients can use  it)
+    # - name: Configure the NFS Server exports 
+    #   blockinfile: 
+    #     path: /etc/exports
+    #     block: |
+    #       {{ nfs_export_dir }} {{ export_entries }}
+    #     create: yes 
+    #     state: present 
+    #   vars: 
+    #     export_entries: >-
+    #       {{ nfs_client_ips | map('regex_replace', '^(.*)$', '\g<1>(rw,sync,no_subtree_check,no_root_squash)') | join(' ') }}
     - name: Write Config on /etc/exports
       lineinfile: 
         path: /etc/exports

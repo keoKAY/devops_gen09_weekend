@@ -5,13 +5,12 @@
   become: true 
   vars: 
     nfs_remote_dir: /srv/nfs_shared
-    nfs_server_ip: 10.148.0.3
+    nfs_server_ip: 10.148.0.3 # Jenkin machine (localhost here means jenkin server)
     nfs_local_dir: /mnt/nfs_shared
   tasks: 
   - name: Update APT 
     apt: 
       update_cache: yes 
-
   - name: Install NFS Client 
     apt: 
       name: nfs-common 
