@@ -3,8 +3,9 @@
   hosts: worker2
   vars: 
     docker_image: "nginx:latest"
-
   tasks: 
+    # just like running docker command 
+    # docker run -dp ...
     - name: Run Nginx Container 
       community.docker.docker_container: 
         name: nginx_test_container 

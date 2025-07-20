@@ -4,6 +4,7 @@
   import_playbook: nfs_server.yaml 
 - name: Setup NFS Clients 
   import_playbook: nfs_client.yaml 
-
+- name: Run Spring Boot Media Service 
+  import_playbook: run_spring_compose.yaml
 
 # ansible-playbook -i inventory.ini playbooks/nfs_main.yaml
