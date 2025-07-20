@@ -1,7 +1,7 @@
 - name: Update Apt Cache 
   apt: 
     update_cache: true 
-- name: Install Nginx 
+- name: Uninstall Nginx 
   apt: 
     name: nginx 
     state: absent 

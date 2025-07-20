@@ -1,0 +1,5 @@
+--- 
+- name: Setup NFS Server 
+  import_tasks: your-nfs-server-task.yaml 
+- name: Setup NFS client
+  import_tasks: nfs-client-task.yaml 

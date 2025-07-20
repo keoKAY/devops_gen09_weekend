@@ -1,5 +1,19 @@
+# config , global config , project config 
+
+
 - name: Install Common Service Playbook
   hosts: worker1,worker2
   become: yes # create user, sudo apt install ....
-  roles: 
+  roles:
+  # common role is used install and uninstall common service 
+  # where isInstalled ( true = install , false = uninstall ) 
     - role: common 
+      vars: 
+        isInstalled: false 
+    # - role: nfs-setup 
+    #   vars: 
+    #     remote_dir: 
+    #     local_dir: 
+    #     client_ips: 
+    #       - 
+    #     server_ip: 
