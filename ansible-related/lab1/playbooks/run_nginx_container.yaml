@@ -1,0 +1,15 @@
+---
+- name: Run Nginx Container 
+  hosts: worker2
+  vars: 
+    docker_image: "nginx:latest"
+
+  tasks: 
+    - name: Run Nginx Container 
+      community.docker.docker_container: 
+        name: nginx_test_container 
+        image: "{{ docker_image }}"
+        state: started 
+        restart_policy: always # when server reboot , it will bring container up again ! 
+        published_ports: 
+          - "3000:80"
