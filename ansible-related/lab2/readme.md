@@ -16,3 +16,9 @@
 
 ### Ansible Vault 
 - Prevent secret from being seen 
+
+
+```bash 
+ansible-vault --help 
+
+```
