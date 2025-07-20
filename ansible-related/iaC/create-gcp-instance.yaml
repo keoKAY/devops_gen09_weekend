@@ -1,0 +1,60 @@
+---
+- name: Create Google Cloud Instance 
+  hosts: localhost 
+  become: yes 
+  vars: 
+    machine_name: gcp-instance-ansible
+    google_project_id: your-google-cloud-project-id
+    # location where you put the service account.json file 
+    service_account_path: google-service-account.json
+  tasks: 
+    - name: install Pip
+      apt: 
+        name: python3-pip
+        state: present 
+
+    - name: Ensure the package are installed
+      pip:
+        name:
+          - requests
+          - google-auth
+    - name: Create GCP instance
+      google.cloud.gcp_compute_instance:
+        name: "{{machine_name}}"
+        machine_type: "e2-medium"
+        zone: "us-central1-a"
+        project: "{{google_project_id}}"
+        auth_kind: "serviceaccount"
+        service_account_file: "{{ service_account_path }}"
+        state: present
+        metadata:
+          startup-script: |
+            #!/bin/bash 
+            sudo apt update 
+            sudo apt install fish -y
+        disks:
+          - auto_delete: true
+            boot: true
+            initialize_params:
+              source_image: "projects/ubuntu-os-cloud/global/images/family/ubuntu-2204-lts"
+              disk_size_gb: 15
+              disk_type: "pd-standard"
+        network_interfaces:
+          - network:
+              selfLink: "projects/{{google_project_id}}/global/networks/default"
+            access_configs:
+              - name: External NAT
+                type: ONE_TO_ONE_NAT
+        tags:
+          items:
+            - http-server
+            - https-server
+      register: gcp_instance
+      when: true 
+    - name: Write gcp_instance into json file
+      copy:
+        content: "{{ gcp_instance }}"
+        dest: "./gcp_instance.json"
+      when: true 
+
+# ansible-playbook playbooks/create-gcp-instance.yaml

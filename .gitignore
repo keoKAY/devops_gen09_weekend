@@ -1,3 +1,4 @@
 pullpolicy
 docker-compose-lesson/wordpress-deployment/.env
 .env
+ansible-related/iaC/google-service-account.json
