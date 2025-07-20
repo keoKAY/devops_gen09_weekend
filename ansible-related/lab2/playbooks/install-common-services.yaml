@@ -1,0 +1,5 @@
+- name: Install Common Service Playbook
+  hosts: worker1,worker2
+  become: yes # create user, sudo apt install ....
+  roles: 
+    - role: common 

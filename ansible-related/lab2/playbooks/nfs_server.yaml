@@ -13,6 +13,9 @@
     # nfs_client_ips:
     #   - 10.148.0.6
     #   - 10.184.0.2
+  # roles: 
+  #   - role: common
+  #   - role: nfs-setup
   tasks: 
     - name: Update APT caches 
       apt: 

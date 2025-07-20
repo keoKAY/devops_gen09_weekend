@@ -1,0 +1,26 @@
+- name: Update Apt Cache 
+  apt: 
+    update_cache: true 
+- name: Install Nginx 
+  apt: 
+    name: nginx 
+    state: present 
+# only for learning , because docker_compose module is repreciated
+# docker_compose_v2
+- name: Install Docker 
+  apt:
+    name: docker 
+    state: present 
+- name: Install Docker COmpose 
+  apt: 
+    name: docker-compose 
+    state: present 
+- name: Install fish shell 
+  apt: 
+    name: fish 
+    state: present 
+- name: Append user to docker group 
+  user: 
+    name: kk # get the ansible_user 
+    groups: docker 
+    append: true 
