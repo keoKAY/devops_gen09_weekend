@@ -1,0 +1,9 @@
+# running role that we got from galaxy 
+---
+- name: Running Nginx Role 
+  hosts: worker1 
+  become: true 
+  roles: 
+    - role: geerlingguy.nginx
+
+    
