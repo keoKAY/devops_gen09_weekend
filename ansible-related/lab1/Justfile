@@ -3,6 +3,4 @@ run name:
     echo "Running Playbook: {{name}}"
     ansible-playbook -i inventory.ini playbooks/{{name}}.yaml
 
-
-
 # just run playbookA

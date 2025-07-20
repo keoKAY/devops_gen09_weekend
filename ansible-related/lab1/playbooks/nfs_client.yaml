@@ -3,6 +3,7 @@
 - name: Setup NFS Client 
   hosts: worker1, worker2 
   become: true 
+  # TODO: making this more dynamic by using internal ip from the inventory instead
   vars: 
     nfs_remote_dir: /srv/nfs_shared
     nfs_server_ip: 10.148.0.3 # Jenkin machine (localhost here means jenkin server)

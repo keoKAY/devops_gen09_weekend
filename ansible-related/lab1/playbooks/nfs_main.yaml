@@ -1,0 +1,9 @@
+# Combining all playbooks into one playbooks 
+---
+- name: Setup NFS Server 
+  import_playbook: nfs_server.yaml 
+- name: Setup NFS Clients 
+  import_playbook: nfs_client.yaml 
+
+
+# ansible-playbook -i inventory.ini playbooks/nfs_main.yaml
