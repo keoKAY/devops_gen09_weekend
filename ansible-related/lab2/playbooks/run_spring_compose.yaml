@@ -1,0 +1,34 @@
+# There are two ways or deploy services with ansible , using docker compose 
+--- 
+- name: Run Media Service Spring Boot 
+  hosts: worker2 
+  become: true 
+  vars: 
+    image_name: "69966/springgradleimg:1.1.1"
+  tasks: 
+    # Running compose on worker2 by copy
+    - name: Copy docker compose file from local 
+      copy: 
+        src: docker-compose.yaml
+        dest: /opt/docker-compose.yaml 
+    - name: Run docker compose command on opt directory 
+      command: "docker-compose up -d "
+      args: 
+        chdir: /opt
+    - name: Using docker_compose module
+      community.docker.docker_compose: #v2
+        project_name: spring-boot-media-api
+        definition: 
+          services: 
+            spring-media-api: 
+              image: "{{ image_name }}"
+              container_name: spring_cont
+              restart: always 
+              volumes: 
+                - "/mnt/nfs_shared/images:/app/src/main/resources/images"
+              ports: 
+                - "8080:8080"
+      when: false # false = skip this tasks 
+# Just 
+# just run run_spring_compose 
+# ansible-playbook -i inventory.ini playbooks/run_spring_compose.yaml 

@@ -1,0 +1,10 @@
+services: 
+  spring-media-service: 
+    image: 69966/springgradleimg:1.1.1
+    container_name: sprint_cont_2
+    restart: always
+    ports: 
+      - 8081:8080
+    volumes: 
+      - "/mnt/nfs_shared/image2:/app/src/main/resources/images"
+            

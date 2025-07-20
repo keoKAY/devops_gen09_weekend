@@ -1,0 +1,34 @@
+- name: Install Common Service Playbook
+  hosts: worker1,worker2
+  become: yes # create user, sudo apt install ....
+  tasks: 
+    - name: Update APT cache 
+      apt: 
+        update_cache: yes 
+    - name: Install Nginx 
+      apt: 
+        name: nginx 
+        state: present  # present = install , absent = uninstall
+    - name: Install docker 
+      apt: 
+        name: docker 
+        state: present 
+    - name: Install docker compose 
+      apt: 
+        name: docker-compose 
+        state: present 
+    - name: install fish shell 
+      apt: 
+        name: fish 
+        state: present 
+    - name: Install neofetch 
+      apt: 
+        name: neofetch 
+        state: present 
+    - name: Add current user to docker group 
+      user: 
+         name: kk 
+         groups: docker 
+         append: true
+
+# ansible-playbook -i inventory.ini playbooks/first.yaml
