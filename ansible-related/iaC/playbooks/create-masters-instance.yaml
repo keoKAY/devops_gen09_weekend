@@ -1,0 +1,9 @@
+# This playbook is only used to create masters machines 
+- name: Create master machines 
+  hosts: localhost 
+  vars_files: 
+    - ../vars/machines.yaml
+  tasks: 
+    - name: Debug vairable inside machine.yaml
+      debug: 
+        msg: "{{ ssh_pubkey_path }}"
