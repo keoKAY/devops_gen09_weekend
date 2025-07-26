@@ -9,60 +9,6 @@
     service_account_path: ../service-account.json
     ssh_public_key_path: /home/kk/.ssh/id_rsa.pub
   tasks:
-    - name: Slurp the local public key
-      slurp: 
-        src: "{{ ssh_public_key_path }}" 
-      register: ssh_pub_key
-    - name: install Pip
-      apt: 
-        name: python3-pip
-        state: present 
-    - name: Ensure the package are installed
-      pip:
-        name:
-          - requests
-          - google-auth
-    - name: Create GCP instance
-      google.cloud.gcp_compute_instance:
-        name: "{{machine_name}}"
-        machine_type: "e2-medium"
-        zone: "us-central1-a"
-        project: "{{google_project_id}}"
-        auth_kind: "serviceaccount"
-        service_account_file: "{{ service_account_path }}"
-        state: present
-        metadata:
-          ssh-keys: "kk:{{ ssh_pub_key['content'] | b64decode }}"
-          startup-script: |
-            #!/bin/bash 
-            sudo apt-get update && sudo apt-get upgrade -y 
-            sudo apt-get install fish -y
-        disks:
-          - auto_delete: true
-            boot: true
-            initialize_params:
-              source_image: "projects/ubuntu-os-cloud/global/images/family/ubuntu-2204-lts"
-              disk_size_gb: 15
-              disk_type: "pd-standard"
-        network_interfaces:
-          - network:
-              selfLink: "projects/{{google_project_id}}/global/networks/default"
-            access_configs:
-              - name: External NAT
-                type: ONE_TO_ONE_NAT
-        tags:
-          items:
-            - http-server
-            - https-server
-      register: gcp_instance
-      when: true 
-    - name: Write gcp_instance into json file
-      copy:
-        content: "{{ gcp_instance }}"
-        dest: "./gcp_instance.json"
-      when: true 
-    - name: Generate Inventory
-      template: 
-        src: ../templates/gcp-inventory-template.j2
-        dest: ../inventory/hosts.ini
+    - name: create first gcp instance 
+      import_tasks: tasks/create-gcp-task.yaml
 # ansible-playbook playbooks/create-gcp-instance.yaml
