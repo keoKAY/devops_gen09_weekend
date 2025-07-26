@@ -1,0 +1,2 @@
+[gcp_instance]
+{{ gcp_instance.name }} ansible_host={{ gcp_instance.networkInterfaces[0].accessConfigs[0].natIP }} ansible_user=kk

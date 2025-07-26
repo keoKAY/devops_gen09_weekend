@@ -3,16 +3,20 @@
   hosts: localhost 
   become: yes 
   vars: 
-    machine_name: gcp-instance-ansible
-    google_project_id: your-google-cloud-project-id
+    machine_name: master1
+    google_project_id: driven-tenure-462201-k3
     # location where you put the service account.json file 
-    service_account_path: google-service-account.json
-  tasks: 
+    service_account_path: ../service-account.json
+    ssh_public_key_path: /home/kk/.ssh/id_rsa.pub
+  tasks:
+    - name: Slurp the local public key
+      slurp: 
+        src: "{{ ssh_public_key_path }}" 
+      register: ssh_pub_key
     - name: install Pip
       apt: 
         name: python3-pip
         state: present 
-
     - name: Ensure the package are installed
       pip:
         name:
@@ -28,10 +32,11 @@
         service_account_file: "{{ service_account_path }}"
         state: present
         metadata:
+          ssh-keys: "kk:{{ ssh_pub_key['content'] | b64decode }}"
           startup-script: |
             #!/bin/bash 
-            sudo apt update 
-            sudo apt install fish -y
+            sudo apt-get update && sudo apt-get upgrade -y 
+            sudo apt-get install fish -y
         disks:
           - auto_delete: true
             boot: true
@@ -56,5 +61,8 @@
         content: "{{ gcp_instance }}"
         dest: "./gcp_instance.json"
       when: true 
-
+    - name: Generate Inventory
+      template: 
+        src: ../templates/gcp-inventory-template.j2
+        dest: ../inventory/hosts.ini
 # ansible-playbook playbooks/create-gcp-instance.yaml
