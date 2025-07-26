@@ -8,4 +8,9 @@ Ansible -> authenticated ( IAM -> `serviceaccount.json` file )
 
 ## When working with variables 
 - var_files
-- group_vars 
+- group_vars
+
+
+## JinJa , Jinja2
+Template 
+-> Programming syntax for yaml files 

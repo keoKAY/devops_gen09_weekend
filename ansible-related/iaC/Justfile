@@ -3,3 +3,8 @@
 create-instance: 
     echo "Creating First Google instance with SSH pub key"
     ansible-playbook playbooks/create-gcp-instance.yaml
+iac: 
+    echo "Create all the masters ....  " 
+    ansible-playbook playbooks/create-masters-instance.yaml
+    echo "Create all the workers ..... " 
+    ansible-playbook playbooks/create-workers-instance.yaml

@@ -1,0 +1,13 @@
+[all:vars]
+ansible_user=kk
+ansible_ssh_extra_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+
+[local]
+localhost ansible_connection=local
+
+[masters]
+{% for instance in gcp_instances.results %}
+{% if not instance.skipped is defined and instance.name  is defined %}
+{{ instance.name }} ansible_host={{ instance.networkInterfaces[0].accessConfigs[0].natIP }}
+{% endif %}
+{% endfor %}

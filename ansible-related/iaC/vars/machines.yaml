@@ -7,13 +7,23 @@ machine_specs:
   large:
     machine_type: "e2-standard-2"
     zone: "asia-southeast1-a"
-    disk_size: 70
+    disk_size: 20
     disk_type: "pd-standard" # we have hdd(pd-standard) , ssd( pd-ssd)
   medium:
     machine_type: "e2-medium"
     zone: "asia-southeast1-a"
-    disk_size: 50
+    disk_size: 20
     disk_type: "pd-standard"
+
+# another style if you are interested 
+# infra: 
+#   masters: 
+#     master1: 
+#     master2: 
+#     master3: 
+#   workers: 
+#     worker1: 
+#     worker2:
 
 ubuntu_specs:
   v22:
