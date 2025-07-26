@@ -1,6 +1,7 @@
 service_account_path: "/home/kk/credentials/service-account.json"
 google_project_id: "driven-tenure-462201-k3"
 ssh_pubkey_path: "/home/kk/.ssh/id_rsa.pub"
+agent_user: "kk"
 
 # Define machine spec
 machine_specs:

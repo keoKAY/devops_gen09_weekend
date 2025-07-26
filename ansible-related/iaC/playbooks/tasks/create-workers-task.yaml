@@ -6,8 +6,8 @@
   register: ssh_pubkey_stat
 - name: Generate ssh key pair there is no pub key 
   shell: |
-    ssh-keygen -t rsa -b 4096 -f /home/kk/.ssh/id_rsa -N ''
-  become_user: kk  
+    ssh-keygen -t rsa -b 4096 -f /home/{{agent_user}}/.ssh/id_rsa -N ''
+  become_user: "{{agent_user}}"  
   when: ssh_pubkey_stat.stat.exists == False
 - name: Slurp pub key from local machine 
   slurp: 
@@ -24,7 +24,7 @@
     service_account_file: "{{service_account_path}}"
     state: present 
     metadata:
-      ssh-keys: "kk:{{ ssh_pubkey['content'] | b64decode }}"
+      ssh-keys: "{{agent_user}}:{{ ssh_pubkey['content'] | b64decode }}"
 
     disks:
       - auto_delete: true

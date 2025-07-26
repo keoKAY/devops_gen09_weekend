@@ -24,7 +24,7 @@
     service_account_file: "{{ service_account_path }}"
     state: present # absent -> delete instance 
     metadata:
-      ssh-keys: "kk:{{ ssh_pubkey['content'] | b64decode }}"
+      ssh-keys: "{{agent_user}}:{{ ssh_pubkey['content'] | b64decode }}"
 
     disks:
       - auto_delete: true
