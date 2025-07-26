@@ -1,0 +1,36 @@
+---
+- name: Setup Workers 
+  hosts: localhost
+  # become: true 
+  gather_facts: false
+  vars_files: 
+    - ../vars/machines.yaml
+  tasks: 
+    - name: Destroy GCP instances
+      google.cloud.gcp_compute_instance:
+        name: "{{ item.name }}"
+        machine_type: "{{ item.machine_type }}"
+        zone: "{{ item.zone }}"
+        project: "{{google_project_id}}"
+        auth_kind: "serviceaccount"
+        service_account_file: "{{ service_account_path }}"
+        state: absent
+        disks:
+          - auto_delete: true
+            boot: true
+            initialize_params:
+              source_image: "{{ item.image }}"
+              disk_size_gb: "{{ item.disk_size }}"
+              disk_type: "{{ item.disk_type }}"
+        network_interfaces:
+          - network:
+              selfLink: "projects/{{google_project_id}}/global/networks/default"
+            access_configs:
+              - name: External NAT
+                type: ONE_TO_ONE_NAT
+        tags:
+          items:
+            - http-server
+            - https-server
+      loop: "{{ machines_info }}"
+      register: gcp_instances

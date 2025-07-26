@@ -8,3 +8,5 @@ iac:
     ansible-playbook playbooks/create-masters-instance.yaml
     echo "Create all the workers ..... " 
     ansible-playbook playbooks/create-workers-instance.yaml
+destroy: 
+    ansible-playbook playbooks/destroy.yaml
