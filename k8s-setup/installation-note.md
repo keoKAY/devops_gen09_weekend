@@ -26,11 +26,30 @@ pip install -r requirements.txt
 + after the update you can run the command to start the cluster 
 ```bash 
 cd kubespray
+# To setup your HA cluster 
 ansible-playbook -b -v -i inventory/sample/inventory.ini \
     cluster.yml
+
+# to delete or reset your cluster 
+ansible-playbook -b -v -i inventory/sample/inventory.ini \
+    reset.yml
 ```
 
+## After successful installation 
+```bash
+sudo kubectl get node 
+sudo kubectl get node -o wide 
+sudo kubectl get pod -A
 
+```
+
+## Type kubectl command without sudo 
+```bash
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+```
 
 ## ISSUES
 ![alt text](image.png)
