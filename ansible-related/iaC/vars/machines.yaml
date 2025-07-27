@@ -16,16 +16,6 @@ machine_specs:
     disk_size: 20
     disk_type: "pd-standard"
 
-# another style if you are interested 
-# infra: 
-#   masters: 
-#     master1: 
-#     master2: 
-#     master3: 
-#   workers: 
-#     worker1: 
-#     worker2:
-
 ubuntu_specs:
   v22:
     image: "projects/ubuntu-os-cloud/global/images/family/ubuntu-2204-lts"
@@ -34,7 +24,13 @@ ubuntu_specs:
 # Define machines that we will create
 machines_info:
   # master requirement : RAM 8G, ....
-  - name: "master01"
+  - name: "master02"
+    machine_type: "{{ machine_specs.large.machine_type }}"
+    image: "{{ ubuntu_specs.v22.image }}"
+    zone: "{{ machine_specs.large.zone }}"
+    disk_size: "{{ machine_specs.large.disk_size }}"
+    disk_type: "{{ machine_specs.large.disk_type }}"
+  - name: "master03"
     machine_type: "{{ machine_specs.large.machine_type }}"
     image: "{{ ubuntu_specs.v22.image }}"
     zone: "{{ machine_specs.large.zone }}"
@@ -43,12 +39,13 @@ machines_info:
   - name: "worker01"
     machine_type: "{{ machine_specs.medium.machine_type }}"
     image: "{{ ubuntu_specs.v22.image }}"
-    zone: "{{ machine_specs.medium.zone }}"
+    zone: "asia-east2-a"
     disk_size: "{{ machine_specs.medium.disk_size }}"
     disk_type: "{{ machine_specs.medium.disk_type }}"
   - name: "worker02"
     image: "{{ ubuntu_specs.v22.image }}"
     machine_type: "{{ machine_specs.medium.machine_type }}"
-    zone: "{{ machine_specs.medium.zone }}"
+    #zone: "{{ machine_specs.medium.zone }}"
+    zone: "asia-east2-a" # Hongkong instance
     disk_size: "{{ machine_specs.medium.disk_size }}"
     disk_type: "{{ machine_specs.medium.disk_type }}"

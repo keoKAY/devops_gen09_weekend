@@ -46,8 +46,9 @@
   loop: "{{ machines_info }}"
   register: gcp_instances
   # when: false 
-  when: 
-    - item.name == "master01" 
+  when: item.name in ["master02","master03"] 
+    # - item.name == "master02"
+    # - item.name == "master03" 
 # Error in getting the first values  results 
 - name: Write gcp_instances into json file
   copy:
