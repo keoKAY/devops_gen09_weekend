@@ -1,0 +1,65 @@
+# clusterIP, nodePort, lb 
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: earthdx-app
+spec:
+  selector:
+    matchLabels:
+      app: earthdx-app
+  template:
+    metadata:
+      labels:
+        app: earthdx-app
+    spec:
+      containers:
+      - name: earthdx-app-container
+        image: 69966/earthdx:78 
+        ports:
+        - containerPort: 80
+
+# Used kubernetes service in order to expose or allow client to access your deployment 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: earthdx-service
+spec:
+  type: ClusterIP
+  selector:
+    app: earthdx-app
+  ports:
+  - port: 80
+    targetPort: 80
+    #nodePort: 30001
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: earthdx-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingressClassName: "nginx"
+spec:
+  ingressClassName: nginx
+  tls: 
+    - hosts: 
+        - earthdx-k8s.devnerd.store
+      secretName: eartdx-secret-tls
+  rules:
+  - host: earthdx-k8s.devnerd.store
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: earthdx-service
+            port: 
+              number: 80
+           
+
+
+# domain = earthdx-k8s.devnerd.store 
