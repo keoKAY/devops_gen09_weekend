@@ -10,4 +10,8 @@ spec:
       image: nginx:latest
       ports: 
         - containerPort: 80
+# what we write in yaml syntax is called declarative 
 # kubectl apply -f nginx-pod.yaml
+
+# imperative is when we type the command like this
+# kubectl run my-nginx --image=nginx:1.22.1 --restart=Never	

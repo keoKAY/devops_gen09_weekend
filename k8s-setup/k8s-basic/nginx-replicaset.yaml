@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nignx-replicaset
+  labels:
+    app: nginx-replicas-lbl
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      key: nginx-replicas-lbl
+  template:
+    metadata:
+      labels:
+        key: nginx-replicas-lbl
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:latest 
+          ports: 
+            - containerPort: 80
