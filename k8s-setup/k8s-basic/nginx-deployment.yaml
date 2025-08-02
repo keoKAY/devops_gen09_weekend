@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-dpl
+spec:
+  replicas: 4 
+  # if not defined , meand rollingUpdate 
+  strategy: 
+    type: Recreate
+  selector:
+    matchLabels:
+      app: nginx-dpl
+  template:
+    metadata:
+      labels:
+        app: nginx-dpl
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
