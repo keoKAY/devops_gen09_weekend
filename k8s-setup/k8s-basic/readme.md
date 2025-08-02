@@ -32,7 +32,7 @@ https://35.213.173.163:31327
 
 # generate the token in order to access the dashboard with RBAC 
 ```
-
+* create serviceaccount and clusterrole to create the token 
 ```yaml
 # k3s-svcacc-clusterrole.yaml
 apiVersion: v1
