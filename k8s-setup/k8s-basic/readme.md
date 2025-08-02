@@ -54,3 +54,4 @@ subjects:
     name: admin-user
     namespace: kubernetes-dashboard
 ```
+kubectl -n kubernetes-dashboard create token admin-user --duration=24h

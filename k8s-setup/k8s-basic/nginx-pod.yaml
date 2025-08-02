@@ -1,0 +1,13 @@
+apiVersion: v1 
+kind: Pod
+metadata: 
+  name: nginx-demo-pod 
+  labels: 
+    app: nginx-demo-lbl
+spec: 
+  containers: 
+    - name: nginx-container 
+      image: nginx:latest
+      ports: 
+        - containerPort: 80
+# kubectl apply -f nginx-pod.yaml
