@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app
+spec:
+  strategy: 
+    type: Recreate
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx-app
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx-app
+        # change from latest to 1.21
+        image: nginx:1.21
+        ports:
+        - containerPort: 80
+
+# kubectl apply -f recreate-dpl.yaml 
+# kubectl get pod -w 
