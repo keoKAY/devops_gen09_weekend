@@ -3,7 +3,8 @@ kind: Deployment
 metadata:
   name: nginx-dpl
 spec:
-  replicas: 4
+  replicas: 4 
+  # if not defined , meand rollingUpdate 
   strategy: 
     type: Recreate
   selector:
@@ -14,9 +15,6 @@ spec:
       labels:
         app: nginx-dpl
     spec:
-    # all the pods will only run inside this node 
-      nodeSelector:
-        kubernetes.io/hostname: node5
       containers:
       - name: nginx-container
         image: nginx:latest
