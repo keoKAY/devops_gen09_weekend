@@ -1,0 +1,26 @@
+# Current Version (nginx )
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app-blue 
+  labels:
+    app: demo-app
+    replicas: blue 
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: demo-app
+      replicas: blue 
+  template:
+    metadata:
+      labels:
+        app: demo-app 
+        replicas: blue 
+    spec:
+      containers:
+      - name: nginx-app-blue
+        image: nginx:latest
+        ports:
+        - containerPort: 80

@@ -1,0 +1,15 @@
+# service will point to specific labels 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-service
+spec:
+  selector:
+    app: demo-app 
+    replicas: green
+  ports:
+  - port: 80
+    targetPort: 80
+
+# kubectl describe svc/demo-service 
