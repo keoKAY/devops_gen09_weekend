@@ -1,4 +1,4 @@
-# Current Version (nginx )
+# Our new version  ( reactjs )
 --- 
 apiVersion: apps/v1
 kind: Deployment
