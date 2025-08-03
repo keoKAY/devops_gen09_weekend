@@ -1,0 +1,3 @@
+# nodeaffinity
+# select a specific type of nodes that has specific properties 
+# example -> there are group of servers that has SSD, we only want to run pods on those server due to read/write speed requirement 

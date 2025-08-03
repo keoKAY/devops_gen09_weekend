@@ -16,8 +16,16 @@ kubectl taint nodes node2 node-role.kubernetes.io/master-
 kubectl get node # Get nodes name
 ```
 ```bash
-kubectl taint nodes node5 service=disabled:NoSchedule
+kubectl taint nodes node4 service=disabled:NoSchedule
 
 #*service=disabled (Any key=value pair that you want notice or comment)
-kubectl taint node node5 service-
+kubectl taint node node4 service-
+```
+
+
+## NODE AFFINITY AND NODE SELECTOR 
+> we select node to run instead ! 
+```bash
+kubectl get nodes --show-labels | grep node4
+
 ```
