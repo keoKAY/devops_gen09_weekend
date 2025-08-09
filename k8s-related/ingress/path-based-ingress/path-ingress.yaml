@@ -1,0 +1,29 @@
+# one ingress , two domain names
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: path-based-ingress
+  annotations: 
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingressClassName: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+spec:
+  ingressClassName: nginx 
+  rules:
+  - host: ingress-earthdx2.devnerd.store
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: reactjs-service
+            port: 
+              number: 80
+      - pathType: Prefix 
+        path: "/nginx"
+        backend: 
+          service: 
+            name: nginx-service 
+            port: 
+              number: 80 

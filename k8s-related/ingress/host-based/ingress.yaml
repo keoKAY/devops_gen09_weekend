@@ -9,7 +9,12 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     kubernetes.io/ingressClassName: "nginx"
 spec:
-  ingressClassName: nginx 
+  ingressClassName: nginx
+  tls: 
+    - hosts: 
+      - ingress-nginx2.devnerd.store
+      - ingress-earthdx2.devnerd.store
+      secretName: ingress-host-tls
   rules:
   - host: ingress-nginx2.devnerd.store
     http:

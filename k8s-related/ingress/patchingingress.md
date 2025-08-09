@@ -10,7 +10,7 @@ F0809 07:03:09.996013       8 main.go:64] flags --publish-service and --publish-
 
 ```bash
 - '--watch-ingress-without-class=true'
-- '--publish-status-address=10.170.0.2,10.170.0.3'
+- '--publish-status-address=10.148.0.2,10.148.0.17,10.148.0.18,10.170.0.2,10.170.0.3'
 # comment the --public-service part 
 ```
 
