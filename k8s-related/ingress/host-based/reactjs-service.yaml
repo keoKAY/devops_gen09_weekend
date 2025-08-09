@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reactjs-service
+spec:
+  selector:
+    app: reactjs-deployment
+  ports:
+  - port: 80
+    targetPort: 80
