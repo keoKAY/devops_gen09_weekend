@@ -10,10 +10,12 @@ spec:
   ingressClassName: nginx
   tls: 
     - hosts: 
-      - ingress-image-uploader2.devnerd.store
-      secretName: ingress-spring-tls-2
+      #- ingress-image-uploader2.devnerd.store
+      - spring-test.devnerd.store
+      secretName: ingress-spring-tls-22
   rules:
-  - host: ingress-image-uploader2.devnerd.store
+  #- host: ingress-image-uploader2.devnerd.store
+  - host: spring-test.devnerd.store
     http:
       paths:
       - pathType: Prefix

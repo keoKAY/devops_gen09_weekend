@@ -12,6 +12,8 @@ spec:
       labels:
         app: spring-app
     spec:
+      nodeSelector: 
+        kubernetes.io/hostname: node4
       containers:
       - name: spring-app
         image: 69966/springgradleimg:1.1.1

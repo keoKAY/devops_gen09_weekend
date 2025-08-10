@@ -2,7 +2,10 @@
 - Docker Volume 
 - Storage Class 
 - EmptyDir 
-- hostPath 
+- hostPath
+- ConfigMap 
+- Secret 
+- FQDNS  
 - NFS 
 - Storage Class 
 - Dynamic Provision / Static 

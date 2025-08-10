@@ -14,3 +14,18 @@ F0809 07:03:09.996013       8 main.go:64] flags --publish-service and --publish-
 # comment the --public-service part 
 ```
 
+## on the resource restricting you can allow the master 
+```bash
+kubectl taint nodes node1 \
+    node-role.kubernetes.io/master:NoSchedule-
+
+# the control-plane role 
+kubectl taint nodes node1 \
+    node-role.kubernetes.io/control-plane:NoSchedule-
+
+# To taint the node of the control-plane role 
+kubectl taint nodes node1 \
+    node-role.kubernetes.io/control-plane:NoSchedule
+
+
+```
