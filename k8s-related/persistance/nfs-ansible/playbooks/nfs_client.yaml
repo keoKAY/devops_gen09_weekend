@@ -1,0 +1,41 @@
+# Manual first -> automate later 
+---
+- name: Setup NFS Client 
+  hosts: node2,node3,node4,node5 
+  become: true 
+  # TODO: making this more dynamic by using internal ip from the inventory instead
+  vars: 
+    nfs_remote_dir: /srv/nfs_shared
+    nfs_server_ip: 10.148.0.2 
+    nfs_local_dir: /mnt/nfs_shared
+  tasks: 
+  - name: Update APT 
+    apt: 
+      update_cache: yes 
+  - name: Install NFS Client 
+    apt: 
+      name: nfs-common 
+      state: present
+  - name: Create Local Mount Directory 
+    file: 
+      path: "{{ nfs_local_dir }}"
+      owner: nobody
+      group: nogroup
+      state: directory
+      mode: '0777'
+  - name: Create a mount point to remote directory 
+    mount: 
+      src: "{{ nfs_server_ip }}:{{ nfs_remote_dir }}"
+      path: "{{ nfs_local_dir }}"
+      fstype: nfs 
+      opts: defaults,_netdev 
+      state: mounted 
+  - name: Persist mount even after reboot 
+    mount: 
+      src: "{{ nfs_server_ip }}:{{ nfs_remote_dir }}"
+      path: "{{ nfs_local_dir }}"
+      fstype: nfs 
+      opts: defaults,_netdev 
+      state: present 
+
+

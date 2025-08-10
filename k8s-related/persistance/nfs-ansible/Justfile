@@ -1,0 +1,5 @@
+#!/bin/bash 
+ping-all: 
+    ansible all -m ping 
+setup-nfs: 
+    ansible-playbook playbooks/nfs_main.yaml
