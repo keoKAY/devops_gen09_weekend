@@ -32,6 +32,8 @@ kubectl taint nodes node1 \
 ```
 # finding the right FQDNS 
 ```bash
+more /etc/resolve.conf 
+# check your cluster name and FQDNS config there 
 kubectl run -it dns-test --rm --restart=Never --image=busybox:1.36 sh
 
 #If you don't see a command prompt, try pressing enter.
