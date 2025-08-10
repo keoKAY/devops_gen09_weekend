@@ -29,3 +29,18 @@ kubectl taint nodes node1 \
 
 
 ```
+# finding the right FQDNS 
+```bash
+kubectl run -it dns-test --rm --restart=Never --image=busybox:1.36 sh
+
+#If you don't see a command prompt, try pressing enter.
+nslookup mynginx-service.default.svc.mycluster
+
+#Server:         169.254.25.10
+#Address:        169.254.25.10:53
+#Name:   mynginx-service.default.svc.mycluster
+#Address: 10.233.58.50
+
+# to get the clusterip for the nameserver of core-dns
+kubectl get svc -n kube-system  | grep "coredns"
+```
