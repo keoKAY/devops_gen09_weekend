@@ -16,6 +16,7 @@ F0809 07:03:09.996013       8 main.go:64] flags --publish-service and --publish-
 
 ## on the resource restricting you can allow the master 
 ```bash
+# only if you are working with k3s
 kubectl taint nodes node1 \
     node-role.kubernetes.io/master:NoSchedule-
 

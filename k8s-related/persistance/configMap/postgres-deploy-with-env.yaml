@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-app
+spec:
+  selector:
+    matchLabels:
+      app: postgres-app
+  template:
+    metadata:
+      labels:
+        app: postgres-app
+    spec:
+      containers:
+      - name: postgres-app
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+        env: 
+          - name: POSTGRES_PASSWORD 
+            value: password123
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: student_db
+# kubectl apply -f postgres-deploy.yaml
