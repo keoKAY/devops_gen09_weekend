@@ -34,7 +34,35 @@ alias h=helm
 
 
 # to see the event or issue with the containercreating state 
+kubectl get pod 
 kubectl describe pod <pod-name> 
 # create folder from the nfs path 
 mkdir /srv/nfs_shared/spring_images
+
+# ingress, nodePort type service 
+kubectl port-forward svc/spring-uploader-svc  30003:80
+```
+
+
+#### Dynamic Provisioning 
+-> PV , PVC 
+-> PVC bind with PV 
+
+Automatically create PV, from the PVC config 
+```bash 
+helm repo list 
+
+
+# adding repo 
+helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+
+
+# create kubernetes artifacts / manifests
+helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
+    --set nfs.server=10.148.0.2 \
+    --set nfs.path=/srv/nfs_shared
+
+kubectl get storageclass 
+kubectl get pv
+kubectl get pvc 
 ```

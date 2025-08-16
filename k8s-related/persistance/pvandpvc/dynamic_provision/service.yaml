@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-uploader-svc
+spec:
+  selector:
+    app: spring-uploader-app
+  ports:
+  - port: 80
+    targetPort: 8080
