@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: dynamic-spring-pvc
 spec:
+  # need to specific this for automatically creation of the pv
   storageClassName: nfs-client
   resources:
     requests:
