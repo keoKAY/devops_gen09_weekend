@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: spring-uploader-pvc
+spec:
+  storageClassName: nfs-demo
+  resources:
+    requests:
+      storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany # allow many pod , many node to read write at once
