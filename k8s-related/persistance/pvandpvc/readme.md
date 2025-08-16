@@ -30,5 +30,11 @@ helm version
 
 
 alias k=kubectl 
-alias h=helm 
+alias h=helm
+
+
+# to see the event or issue with the containercreating state 
+kubectl describe pod <pod-name> 
+# create folder from the nfs path 
+mkdir /srv/nfs_shared/spring_images
 ```
