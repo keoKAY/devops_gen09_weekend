@@ -19,5 +19,10 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+        env: 
+        {{- range .Values.container.envs }}
+          - name: {{ .name }}
+            value: {{ .value }}
+        {{- end}}
         ports:
         - containerPort: {{ .Values.container.port }}

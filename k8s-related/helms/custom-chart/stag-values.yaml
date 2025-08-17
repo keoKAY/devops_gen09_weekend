@@ -5,3 +5,10 @@ container:
   name: nginx-staging-cont
   image: nginx:latest
   port: 80
+  envs: 
+    - name: POSTGRES_USERNAME
+      value: postgresql
+    - name: POSTGRES_PASSWORD
+      value: password123
+    - name: POSTGRES_DB
+      value: db_demo

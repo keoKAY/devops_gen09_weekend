@@ -5,3 +5,10 @@ container:
   name: nginx-prod-cont
   image: nginx:1.22.1
   port: 80
+  envs: 
+    - name: POSTGRES_USERNAME
+      value: postgresqlprod
+    - name: POSTGRES_PASSWORD
+      value: password123prod
+    - name: POSTGRES_DB
+      value: db_demo_prod
