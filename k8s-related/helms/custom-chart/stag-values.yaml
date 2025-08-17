@@ -1,0 +1,7 @@
+appName:
+  app: nginx-stagging
+replicas: 2
+container:
+  name: nginx-staging-cont
+  image: nginx:latest
+  port: 80

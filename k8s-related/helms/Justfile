@@ -1,0 +1,13 @@
+#!/bin/bash
+
+render-prod: 
+    helm template custom-chart  --values custom-chart/values.yaml
+render-stag: 
+    helm template custom-chart  --values custom-chart/stag-values.yaml
+release-prod: 
+    helm ungrade prod-release custom-chart  \
+        --values custom-chart/values.yaml --install
+
+release-stag: 
+    helm upgrade stag-release custom-chart  \
+        --values custom-chart/stag-values.yaml --install
