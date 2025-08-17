@@ -4,10 +4,23 @@ replicas: 2
 nodeSelector:
   kubernetes.io/hostname: node5
   testing: 1
+volumeMounts: 
+  - name: my-vol
+    mountPath: /app/src/main/resources/images 
+  - name: my-vol-2
+    mountPath: /etc/mystorage
+volumes: 
+  - name: my-vol
+    hostPath: 
+      path: /var/images
+  - name: my-vol-2
+    persistentVolumeClaim: 
+      claimName: dynamic-spring-pvc   
 
 container:
   name: nginx-staging-cont
   image: nginx:latest
+  pullPolicy: Always
   port: 80
   envs: 
     - name: POSTGRES_USERNAME

@@ -17,7 +17,12 @@ spec:
       {{- toYaml .Values.nodeSelector | nindent 7 }}
       containers:
       - name: {{ .Values.appName.app }}-cont
-        image: {{ .Values.container.image }}
+      {{- with .Values.container }}
+        image: {{ .image }}
+        imagePullPolicy: {{ .pullPolicy }}
+        ports:
+        - containerPort: {{ .port }}
+      {{- end }}
         resources:
           limits:
             memory: "128Mi"
@@ -27,5 +32,6 @@ spec:
           - name: {{ .name }}
             value: {{ .value }}
         {{- end}}
-        ports:
-        - containerPort: {{ .Values.container.port }}
+        
+
+
