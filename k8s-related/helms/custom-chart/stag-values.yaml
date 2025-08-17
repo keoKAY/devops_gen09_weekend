@@ -1,6 +1,6 @@
 appName:
   app: nginx-stagging
-replicas: 2
+replicas: 20
 nodeSelector:
   kubernetes.io/hostname: node5
   testing: 1
