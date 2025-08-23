@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application 
+metadata: 
+  name: first-argocd-declarative-app 
+  namespace: argocd
+spec: 
+  project: default 
+  source: 
+    repoURL: https://github.com/keoKAY/first-helm-argo-repo-dev09.git
+    targetRevision: HEAD
+    path: reactjs-plants-chart
+  destination: 
+    namespace: default 
+    server: https://kubernetes.default.svc
+  syncPolicy: 
+    syncOptions:
+      - Validate=false
