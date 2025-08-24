@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-stateful-app
+spec:
+  selector:
+    matchLabels:
+      app: postgres-stateful-app
+  serviceName: postgres-stateful-svc
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: postgres-stateful-app
+    spec:
+      affinity:
+        nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: NotIn
+                  values:
+                  - node1
+      containers:
+      - name: postgres-cont
+        image: postgres
+        # for production , please use configmap 
+        env:
+        - name: POSTGRES_DB
+          value: demodb
+        - name: POSTGRES_USER
+          value: demouser
+        # for production , please use secret instead 
+        - name: POSTGRES_PASSWORD
+          value: password123
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: my-postgres-vol
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: my-postgres-vol
+    spec:
+      storageClassName: nfs-client
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi

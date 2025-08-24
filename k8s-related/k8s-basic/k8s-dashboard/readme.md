@@ -24,3 +24,7 @@ kubectl get cert -n kube-system # look for Ready State
 - If you removed the taint (untaint) for all the masters 
 you can use master IP for the dns record 
 - If not, use IP of workers instead
+
+
+***
+- Working with Rancher 
