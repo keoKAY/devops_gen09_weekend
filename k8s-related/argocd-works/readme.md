@@ -16,3 +16,19 @@
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 
 ```
+
+## Working with webhook
+
+```bash
+123mysecretdemo
+
+kubectl edit secret argocd-secret -n argocd
+kubectl describe secret argocd-secret -n argocd
+
+
+echo -n "123mysecretdemo" | base64 
+
+data: 
+    webhook.github.secret: <your-base64-value> 
+    
+```
